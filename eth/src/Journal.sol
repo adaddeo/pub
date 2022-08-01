@@ -7,11 +7,14 @@ import "openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol";
 
 error SubmissionFeeNotPaid();
 error SubmissionsClosed();
+error InvalidSubmissionId(uint256 submissionId);
+error IssueAlreadyPublished();
 
 contract Journal is Ownable {
+  event IssuePublished(uint256 indexed publicationId, uint256 indexed issueId, uint256[] _submissionIds, string data);
   event NewPublication(uint256 indexed publicationId, string title);
-  event NewIssue(uint256 indexed publicationId, uint256 indexed issueId);
-  event NewSubmission(uint256 indexed publicationId, uint256 indexed issueId, uint256 indexed submissionId, string content);
+  event NewIssue(uint256 indexed publicationId, uint256 issueId);
+  event NewSubmission(uint256 indexed publicationId, uint256 indexed issueId, uint256 submissionId, string content);
 
   struct Publication {
     address owner;
@@ -24,20 +27,24 @@ contract Journal is Ownable {
     uint256 publicationId;
     uint256 submissionsOpenBlock;
     uint256 submissionsCloseBlock;
+    uint256 publishedAt;
     uint256 submissionFee;
-    uint256 collectedSubmissionFees;
-    uint256 distributedSubmissionFees;
+    uint256 rewards;
 
     uint256 nextSubmissionId;
     mapping(uint256 => Submission) submissions;
+
+    uint256 nextContentId;
+    mapping(uint256 => Submission) contents;
   }
 
   struct Submission {
     address submitter;
   }
 
-  uint256 nextPublicationId = 0;
+  uint256 nextPublicationId;
   mapping(uint256 => Publication) publications;
+  mapping(address => uint256) unclaimedRewards;
 
   /** queries */
 
@@ -45,12 +52,8 @@ contract Journal is Ownable {
     return publications[_publicationId].issues[_issueId].submissionFee;
   }
 
-  function collectedSubmissionFees(uint256 _publicationId, uint256 _issueId) external view returns (uint256) {
-    return publications[_publicationId].issues[_issueId].collectedSubmissionFees;
-  }
-
-  function distributedSubmissionFees(uint256 _publicationId, uint256 _issueId) external view returns (uint256) {
-    return publications[_publicationId].issues[_issueId].distributedSubmissionFees;
+  function issueRewards(uint256 _publicationId, uint256 _issueId) external view returns (uint256) {
+    return publications[_publicationId].issues[_issueId].rewards;
   }
 
   function submissionsCount(uint256 _publicationId, uint256 _issueId) external view returns (uint256) {
@@ -97,7 +100,30 @@ contract Journal is Ownable {
     uint256 submissionId = issue.nextSubmissionId++;
     Submission storage submission = issue.submissions[submissionId];
     submission.submitter = msg.sender;
-    issue.collectedSubmissionFees += msg.value;
+    issue.rewards += msg.value;
     emit NewSubmission(_publicationId, _issueId, submissionId, content);
   }
+
+  function publishIssue(uint256 _publicationId, uint256 _issueId, uint256[] calldata _submissionIds, string calldata data) external {
+    Publication storage publication = publications[_publicationId];
+    require(publication.owner == msg.sender, "permission denied");
+    Issue storage issue = publication.issues[_issueId];
+    if (issue.publishedAt != 0) {
+      revert IssueAlreadyPublished();
+    }
+    issue.publishedAt  = block.timestamp;
+    uint256 length = _submissionIds.length;
+    for (uint256 i = 0; i < length;) {
+      Submission storage submission = issue.submissions[_submissionIds[i]];
+      if (submission.submitter == address(0)) {
+        revert InvalidSubmissionId(_submissionIds[i]);
+      }
+      unclaimedRewards[submission.submitter] += issue.rewards / length;
+      unchecked { ++i; }
+    }
+    // should the content be stored in log or storage?
+    // also include
+    emit IssuePublished(_publicationId, _issueId, _submissionIds, data);
+  }
+
 }

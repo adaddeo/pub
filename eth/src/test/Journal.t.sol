@@ -2,6 +2,7 @@
 pragma solidity 0.8.10;
 
 import "ds-test/test.sol";
+import "forge-std/Test.sol";
 import "../Journal.sol";
 
 interface CheatCodes {
@@ -25,24 +26,16 @@ contract JournalTest is DSTest {
     assertEq(journal.submissionFee(0, 0), 100);
   }
 
-  /** collectedSubmissionFees */
+  /** issueRewards */
 
-  function testCollectedSubmisssionFees() public {
+  function testIssueRewards() public {
     journal.createPublication("Journal");
     journal.createIssue(0, 0, 1, 0.01 ether);
-    assertEq(journal.collectedSubmissionFees(0, 0), 0);
+    assertEq(journal.issueRewards(0, 0), 0);
     journal.createSubmission{value: 0.01 ether}(0, 0, "poem");
-    assertEq(journal.collectedSubmissionFees(0, 0), 0.01 ether);
+    assertEq(journal.issueRewards(0, 0), 0.01 ether);
     journal.createSubmission{value: 0.01 ether}(0, 0, "poem");
-    assertEq(journal.collectedSubmissionFees(0, 0), 0.02 ether);
-  }
-
-  /** distributedSubmissionFees */
-
-  function testDistributedSubmisssionFees() public {
-    journal.createPublication("Journal");
-    journal.createIssue(0, 0, 1, 0.01 ether);
-    assertEq(journal.distributedSubmissionFees(0, 0), 0);
+    assertEq(journal.issueRewards(0, 0), 0.02 ether);
   }
 
   /** submissionsCount */
@@ -123,5 +116,39 @@ contract JournalTest is DSTest {
     journal.createIssue(0, 0, 2, 0.01 ether);
     journal.createSubmission{value: 0.01 ether}(0, 0, "poem");
     journal.createSubmission{value: 0.01 ether}(0, 0, "poem");
+  }
+
+  /** publishIssue */
+
+
+  function testFailWithoutPermissions() public {
+    uint256[] memory submissionIds;
+    journal.createPublication("Journal");
+    journal.createIssue(0, 0, 2, 0.01 ether);
+    cheats.prank(address(0));
+    journal.publishIssue(0, 0, submissionIds, "issuedata");
+  }
+
+  function testFailAlreadyPublishedIssue() public {
+    uint256[] memory submissionIds;
+    journal.createPublication("Journal");
+    journal.createIssue(0, 0, 2, 0.01 ether);
+    journal.publishIssue(0, 0, submissionIds, "issuedata");
+    journal.publishIssue(0, 0, submissionIds, "issuedata");
+  }
+
+  function testFailInvalidSubmissionIds() public {
+    vm.expectRevert(InvalidSubmissionId.selector);
+    uint256[] memory submissionIds = [1];
+    journal.createPublication("Journal");
+    journal.createIssue(0, 0, 2, 0.01 ether);
+    journal.publishIssue(0, 0, submissionIds, "issuedata");
+  }
+
+  function testPublishIssue() public {
+    uint256[] memory submissionIds;
+    journal.createPublication("Journal");
+    journal.createIssue(0, 0, 2, 0.01 ether);
+    journal.publishIssue(0, 0, submissionIds, "issuedata");
   }
 }
