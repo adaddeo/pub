@@ -1,0 +1,4253 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "SubmissionFeeNotPaid",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SubmissionsClosed",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "publicationId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "issueId",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewIssue",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "publicationId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        }
+      ],
+      "name": "NewPublication",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "publicationId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "issueId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "submissionId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "content",
+          "type": "string"
+        }
+      ],
+      "name": "NewSubmission",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_publicationId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_issueId",
+          "type": "uint256"
+        }
+      ],
+      "name": "collectedSubmissionFees",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_publicationId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_submissionsOpenBlock",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_submissionsCloseBlock",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_submissionFee",
+          "type": "uint256"
+        }
+      ],
+      "name": "createIssue",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "createPublication",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_publicationId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_issueId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "content",
+          "type": "string"
+        }
+      ],
+      "name": "createSubmission",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_publicationId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_issueId",
+          "type": "uint256"
+        }
+      ],
+      "name": "distributedSubmissionFees",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_publicationId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_issueId",
+          "type": "uint256"
+        }
+      ],
+      "name": "submissionFee",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_publicationId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_issueId",
+          "type": "uint256"
+        }
+      ],
+      "name": "submissionsCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x6080604052600060015534801561001557600080fd5b5061001f33610024565b610074565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b61080e806100836000396000f3fe6080604052600436106100915760003560e01c80639e79c104116100595780639e79c10414610177578063aab96d7f146101b5578063ab31a033146101d5578063f2fde38b146101f5578063f37a8f1c1461021557600080fd5b806323ec26d7146100965780633daf84bb146100ab578063715018a6146100fc57806388d9c89f146101115780638da5cb5b1461014f575b600080fd5b6100a96100a4366004610612565b610253565b005b3480156100b757600080fd5b506100e96100c6366004610665565b600091825260026020818152604080852093855292909101905290206004015490565b6040519081526020015b60405180910390f35b34801561010857600080fd5b506100a9610364565b34801561011d57600080fd5b506100e961012c366004610665565b600091825260026020818152604080852093855292909101905290206006015490565b34801561015b57600080fd5b506000546040516001600160a01b0390911681526020016100f3565b34801561018357600080fd5b506100e9610192366004610665565b600091825260026020818152604080852093855292909101905290206005015490565b3480156101c157600080fd5b506100a96101d0366004610687565b6103a3565b3480156101e157600080fd5b506100a96101f03660046106b9565b610464565b34801561020157600080fd5b506100a96102103660046106fb565b6104de565b34801561022157600080fd5b506100e9610230366004610665565b600091825260026020818152604080852093855292909101905290206003015490565b600084815260026020818152604080842087855292830190915290912060018101544310806102855750806002015443115b156102a3576040516307be465960e41b815260040160405180910390fd5b806003015434146102c757604051631750423b60e01b815260040160405180910390fd5b600681018054600091826102da83610741565b909155506000818152600784016020526040812080546001600160a01b03191633178155600485018054939450909234929061031790849061075c565b925050819055508187897fd1014531c81681bec67778100b563c200d496725d19b73064fe586df20fc48f08989604051610352929190610774565b60405180910390a45050505050505050565b6000546001600160a01b031633146103975760405162461bcd60e51b815260040161038e906107a3565b60405180910390fd5b6103a16000610579565b565b6000546001600160a01b031633146103cd5760405162461bcd60e51b815260040161038e906107a3565b600084815260026020526040902080546001600160a01b031633146103f157600080fd5b6001810180546000918261040483610741565b90915550600081815260028085016020526040808320600181018a9055918201889055600382018790555192935091839189917fda30336bda9904dd16dd2e9f390674e3f7d4fba37e85c71f1908fed8142b91549190a350505050505050565b600180546000918261047583610741565b909155506000818152600260205260409081902080546001600160a01b0319163317815590519192509082907f862efd97586c7c2d9179befe2a00eb2ea7e5b782392b97bdd6fb002f876f4718906104d09087908790610774565b60405180910390a250505050565b6000546001600160a01b031633146105085760405162461bcd60e51b815260040161038e906107a3565b6001600160a01b03811661056d5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161038e565b61057681610579565b50565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60008083601f8401126105db57600080fd5b50813567ffffffffffffffff8111156105f357600080fd5b60208301915083602082850101111561060b57600080fd5b9250929050565b6000806000806060858703121561062857600080fd5b8435935060208501359250604085013567ffffffffffffffff81111561064d57600080fd5b610659878288016105c9565b95989497509550505050565b6000806040838503121561067857600080fd5b50508035926020909101359150565b6000806000806080858703121561069d57600080fd5b5050823594602084013594506040840135936060013592509050565b600080602083850312156106cc57600080fd5b823567ffffffffffffffff8111156106e357600080fd5b6106ef858286016105c9565b90969095509350505050565b60006020828403121561070d57600080fd5b81356001600160a01b038116811461072457600080fd5b9392505050565b634e487b7160e01b600052601160045260246000fd5b60006000198214156107555761075561072b565b5060010190565b6000821982111561076f5761076f61072b565b500190565b60208152816020820152818360408301376000818301604090810191909152601f909201601f19160101919050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260408201526060019056fea264697066735822122020e82c9d085f4907d3bbb0c8e7205d8013cc72db007aa9d5f67ad7b6faad648564736f6c634300080a0033",
+    "sourceMap": "261:3274:4:-:0;;;1051:1;1023:29;;261:3274;;;;;;;;;-1:-1:-1;921:32:1;719:10:2;921:18:1;:32::i;:::-;261:3274:4;;2270:187:1;2343:16;2362:6;;-1:-1:-1;;;;;2378:17:1;;;-1:-1:-1;;;;;;2378:17:1;;;;;;2410:40;;2362:6;;;;;;;2410:40;;2343:16;2410:40;2333:124;2270:187;:::o;261:3274:4:-;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x6080604052600436106100915760003560e01c80639e79c104116100595780639e79c10414610177578063aab96d7f146101b5578063ab31a033146101d5578063f2fde38b146101f5578063f37a8f1c1461021557600080fd5b806323ec26d7146100965780633daf84bb146100ab578063715018a6146100fc57806388d9c89f146101115780638da5cb5b1461014f575b600080fd5b6100a96100a4366004610612565b610253565b005b3480156100b757600080fd5b506100e96100c6366004610665565b600091825260026020818152604080852093855292909101905290206004015490565b6040519081526020015b60405180910390f35b34801561010857600080fd5b506100a9610364565b34801561011d57600080fd5b506100e961012c366004610665565b600091825260026020818152604080852093855292909101905290206006015490565b34801561015b57600080fd5b506000546040516001600160a01b0390911681526020016100f3565b34801561018357600080fd5b506100e9610192366004610665565b600091825260026020818152604080852093855292909101905290206005015490565b3480156101c157600080fd5b506100a96101d0366004610687565b6103a3565b3480156101e157600080fd5b506100a96101f03660046106b9565b610464565b34801561020157600080fd5b506100a96102103660046106fb565b6104de565b34801561022157600080fd5b506100e9610230366004610665565b600091825260026020818152604080852093855292909101905290206003015490565b600084815260026020818152604080842087855292830190915290912060018101544310806102855750806002015443115b156102a3576040516307be465960e41b815260040160405180910390fd5b806003015434146102c757604051631750423b60e01b815260040160405180910390fd5b600681018054600091826102da83610741565b909155506000818152600784016020526040812080546001600160a01b03191633178155600485018054939450909234929061031790849061075c565b925050819055508187897fd1014531c81681bec67778100b563c200d496725d19b73064fe586df20fc48f08989604051610352929190610774565b60405180910390a45050505050505050565b6000546001600160a01b031633146103975760405162461bcd60e51b815260040161038e906107a3565b60405180910390fd5b6103a16000610579565b565b6000546001600160a01b031633146103cd5760405162461bcd60e51b815260040161038e906107a3565b600084815260026020526040902080546001600160a01b031633146103f157600080fd5b6001810180546000918261040483610741565b90915550600081815260028085016020526040808320600181018a9055918201889055600382018790555192935091839189917fda30336bda9904dd16dd2e9f390674e3f7d4fba37e85c71f1908fed8142b91549190a350505050505050565b600180546000918261047583610741565b909155506000818152600260205260409081902080546001600160a01b0319163317815590519192509082907f862efd97586c7c2d9179befe2a00eb2ea7e5b782392b97bdd6fb002f876f4718906104d09087908790610774565b60405180910390a250505050565b6000546001600160a01b031633146105085760405162461bcd60e51b815260040161038e906107a3565b6001600160a01b03811661056d5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161038e565b61057681610579565b50565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60008083601f8401126105db57600080fd5b50813567ffffffffffffffff8111156105f357600080fd5b60208301915083602082850101111561060b57600080fd5b9250929050565b6000806000806060858703121561062857600080fd5b8435935060208501359250604085013567ffffffffffffffff81111561064d57600080fd5b610659878288016105c9565b95989497509550505050565b6000806040838503121561067857600080fd5b50508035926020909101359150565b6000806000806080858703121561069d57600080fd5b5050823594602084013594506040840135936060013592509050565b600080602083850312156106cc57600080fd5b823567ffffffffffffffff8111156106e357600080fd5b6106ef858286016105c9565b90969095509350505050565b60006020828403121561070d57600080fd5b81356001600160a01b038116811461072457600080fd5b9392505050565b634e487b7160e01b600052601160045260246000fd5b60006000198214156107555761075561072b565b5060010190565b6000821982111561076f5761076f61072b565b500190565b60208152816020820152818360408301376000818301604090810191909152601f909201601f19160101919050565b6020808252818101527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260408201526060019056fea264697066735822122020e82c9d085f4907d3bbb0c8e7205d8013cc72db007aa9d5f67ad7b6faad648564736f6c634300080a0033",
+    "sourceMap": "261:3274:4:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2783:750;;;;;;:::i;:::-;;:::i;:::-;;1301:194;;;;;;;;;;-1:-1:-1;1301:194:4;;;;;:::i;:::-;1399:7;1421:28;;;:12;:28;;;;;;;;:45;;;:35;;;;:45;;;;:69;;;;1301:194;;;;1318:25:6;;;1306:2;1291:18;1301:194:4;;;;;;;;1668:101:1;;;;;;;;;;;;;:::i;1701:180:4:-;;;;;;;;;;-1:-1:-1;1701:180:4;;;;;:::i;:::-;1792:7;1814:28;;;:12;:28;;;;;;;;:45;;;:35;;;;:45;;;;:62;;;;1701:180;1036:85:1;;;;;;;;;;-1:-1:-1;1082:7:1;1108:6;1036:85;;-1:-1:-1;;;;;1108:6:1;;;1500:51:6;;1488:2;1473:18;1036:85:1;1354:203:6;1499:198:4;;;;;;;;;;-1:-1:-1;1499:198:4;;;;;:::i;:::-;1599:7;1621:28;;;:12;:28;;;;;;;;:45;;;:35;;;;:45;;;;:71;;;;1499:198;2169:610;;;;;;;;;;-1:-1:-1;2169:610:4;;;;;:::i;:::-;;:::i;1904:261::-;;;;;;;;;;-1:-1:-1;1904:261:4;;;;;:::i;:::-;;:::i;1918:198:1:-;;;;;;;;;;-1:-1:-1;1918:198:1;;;;;:::i;:::-;;:::i;1123:174:4:-;;;;;;;;;;-1:-1:-1;1123:174:4;;;;;:::i;:::-;1211:7;1233:28;;;:12;:28;;;;;;;;:45;;;:35;;;;:45;;;;:59;;;;1123:174;2783:750;2899:31;2933:28;;;:12;:28;;;;;;;;2989;;;:18;;;:28;;;;;;3043:26;;;;3028:12;:41;;:87;;;3088:5;:27;;;3073:12;:42;3028:87;3024:134;;;3132:19;;-1:-1:-1;;;3132:19:4;;;;;;;;;;;3024:134;3181:5;:19;;;3168:9;:32;3164:82;;3217:22;;-1:-1:-1;;;3217:22:4;;;;;;;;;;;3164:82;3275:22;;;:24;;3252:20;;;3275:24;;;:::i;:::-;;;;-1:-1:-1;3305:29:4;3337:31;;;:17;;;:31;;;;;3374:33;;-1:-1:-1;;;;;;3374:33:4;3397:10;3374:33;;;3413:29;;;:42;;3252:47;;-1:-1:-1;3337:31:4;;3446:9;;3305:29;3413:42;;3446:9;;3413:42;:::i;:::-;;;;;;;;3506:12;3496:8;3480:14;3466:62;3520:7;;3466:62;;;;;;;:::i;:::-;;;;;;;;2893:640;;;;2783:750;;;;:::o;1668:101:1:-;1082:7;1108:6;-1:-1:-1;;;;;1108:6:1;719:10:2;1248:23:1;1240:68;;;;-1:-1:-1;;;1240:68:1;;;;;;;:::i;:::-;;;;;;;;;1732:30:::1;1759:1;1732:18;:30::i;:::-;1668:101::o:0;2169:610:4:-;1082:7:1;1108:6;-1:-1:-1;;;;;1108:6:1;719:10:2;1248:23:1;1240:68;;;;-1:-1:-1;;;1240:68:1;;;;;;;:::i;:::-;2346:31:4::1;2380:28:::0;;;:12:::1;:28;::::0;;;;2422:17;;-1:-1:-1;;;;;2422:17:4::1;2443:10;2422:31;2414:40;;;::::0;::::1;;2478:23;::::0;::::1;:25:::0;;2460:15:::1;::::0;;2478:25:::1;::::0;::::1;:::i;:::-;::::0;;;-1:-1:-1;2509:23:4::1;2535:27:::0;;;:18:::1;::::0;;::::1;:27;::::0;;;;;2568:30:::1;::::0;::::1;:54:::0;;;2628:31;;::::1;:56:::0;;;2690:23:::1;::::0;::::1;:40:::0;;;2741:33;2460:43;;-1:-1:-1;2535:27:4;2460:43;;2750:14;;2741:33:::1;::::0;2509:23;2741:33:::1;2340:439;;;2169:610:::0;;;;:::o;1904:261::-;1992:17;:19;;1968:21;;;1992:19;;;:::i;:::-;;;;-1:-1:-1;2017:31:4;2051:27;;;:12;:27;;;;;;;2084:30;;-1:-1:-1;;;;;;2084:30:4;2104:10;2084:30;;;2125:35;;1968:43;;-1:-1:-1;2051:27:4;1968:43;;2125:35;;;;2155:4;;;;2125:35;:::i;:::-;;;;;;;;1962:203;;1904:261;;:::o;1918:198:1:-;1082:7;1108:6;-1:-1:-1;;;;;1108:6:1;719:10:2;1248:23:1;1240:68;;;;-1:-1:-1;;;1240:68:1;;;;;;;:::i;:::-;-1:-1:-1;;;;;2006:22:1;::::1;1998:73;;;::::0;-1:-1:-1;;;1998:73:1;;4022:2:6;1998:73:1::1;::::0;::::1;4004:21:6::0;4061:2;4041:18;;;4034:30;4100:34;4080:18;;;4073:62;-1:-1:-1;;;4151:18:6;;;4144:36;4197:19;;1998:73:1::1;3820:402:6::0;1998:73:1::1;2081:28;2100:8;2081:18;:28::i;:::-;1918:198:::0;:::o;2270:187::-;2343:16;2362:6;;-1:-1:-1;;;;;2378:17:1;;;-1:-1:-1;;;;;;2378:17:1;;;;;;2410:40;;2362:6;;;;;;;2410:40;;2343:16;2410:40;2333:124;2270:187;:::o;14:348:6:-;66:8;76:6;130:3;123:4;115:6;111:17;107:27;97:55;;148:1;145;138:12;97:55;-1:-1:-1;171:20:6;;214:18;203:30;;200:50;;;246:1;243;236:12;200:50;283:4;275:6;271:17;259:29;;335:3;328:4;319:6;311;307:19;303:30;300:39;297:59;;;352:1;349;342:12;297:59;14:348;;;;;:::o;367:547::-;456:6;464;472;480;533:2;521:9;512:7;508:23;504:32;501:52;;;549:1;546;539:12;501:52;585:9;572:23;562:33;;642:2;631:9;627:18;614:32;604:42;;697:2;686:9;682:18;669:32;724:18;716:6;713:30;710:50;;;756:1;753;746:12;710:50;795:59;846:7;837:6;826:9;822:22;795:59;:::i;:::-;367:547;;;;-1:-1:-1;873:8:6;-1:-1:-1;;;;367:547:6:o;919:248::-;987:6;995;1048:2;1036:9;1027:7;1023:23;1019:32;1016:52;;;1064:1;1061;1054:12;1016:52;-1:-1:-1;;1087:23:6;;;1157:2;1142:18;;;1129:32;;-1:-1:-1;919:248:6:o;1562:385::-;1648:6;1656;1664;1672;1725:3;1713:9;1704:7;1700:23;1696:33;1693:53;;;1742:1;1739;1732:12;1693:53;-1:-1:-1;;1765:23:6;;;1835:2;1820:18;;1807:32;;-1:-1:-1;1886:2:6;1871:18;;1858:32;;1937:2;1922:18;1909:32;;-1:-1:-1;1562:385:6;-1:-1:-1;1562:385:6:o;1952:411::-;2023:6;2031;2084:2;2072:9;2063:7;2059:23;2055:32;2052:52;;;2100:1;2097;2090:12;2052:52;2140:9;2127:23;2173:18;2165:6;2162:30;2159:50;;;2205:1;2202;2195:12;2159:50;2244:59;2295:7;2286:6;2275:9;2271:22;2244:59;:::i;:::-;2322:8;;2218:85;;-1:-1:-1;1952:411:6;-1:-1:-1;;;;1952:411:6:o;2368:286::-;2427:6;2480:2;2468:9;2459:7;2455:23;2451:32;2448:52;;;2496:1;2493;2486:12;2448:52;2522:23;;-1:-1:-1;;;;;2574:31:6;;2564:42;;2554:70;;2620:1;2617;2610:12;2554:70;2643:5;2368:286;-1:-1:-1;;;2368:286:6:o;2659:127::-;2720:10;2715:3;2711:20;2708:1;2701:31;2751:4;2748:1;2741:15;2775:4;2772:1;2765:15;2791:135;2830:3;-1:-1:-1;;2851:17:6;;2848:43;;;2871:18;;:::i;:::-;-1:-1:-1;2918:1:6;2907:13;;2791:135::o;2931:128::-;2971:3;3002:1;2998:6;2995:1;2992:13;2989:39;;;3008:18;;:::i;:::-;-1:-1:-1;3044:9:6;;2931:128::o;3064:390::-;3223:2;3212:9;3205:21;3262:6;3257:2;3246:9;3242:18;3235:34;3319:6;3311;3306:2;3295:9;3291:18;3278:48;3375:1;3346:22;;;3370:2;3342:31;;;3335:42;;;;3438:2;3417:15;;;-1:-1:-1;;3413:29:6;3398:45;3394:54;;3064:390;-1:-1:-1;3064:390:6:o;3459:356::-;3661:2;3643:21;;;3680:18;;;3673:30;3739:34;3734:2;3719:18;;3712:62;3806:2;3791:18;;3459:356::o",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "collectedSubmissionFees(uint256,uint256)": "3daf84bb",
+    "createIssue(uint256,uint256,uint256,uint256)": "aab96d7f",
+    "createPublication(string)": "ab31a033",
+    "createSubmission(uint256,uint256,string)": "23ec26d7",
+    "distributedSubmissionFees(uint256,uint256)": "9e79c104",
+    "owner()": "8da5cb5b",
+    "renounceOwnership()": "715018a6",
+    "submissionFee(uint256,uint256)": "f37a8f1c",
+    "submissionsCount(uint256,uint256)": "88d9c89f",
+    "transferOwnership(address)": "f2fde38b"
+  },
+  "ast": {
+    "absolutePath": "src/Journal.sol",
+    "id": 2843,
+    "exportedSymbols": {
+      "Context": [
+        1913
+      ],
+      "EnumerableSet": [
+        2512
+      ],
+      "Journal": [
+        2842
+      ],
+      "Ownable": [
+        1891
+      ],
+      "SubmissionFeeNotPaid": [
+        2518
+      ],
+      "SubmissionsClosed": [
+        2520
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "40:3496:4",
+    "nodes": [
+      {
+        "id": 2514,
+        "nodeType": "PragmaDirective",
+        "src": "40:23:4",
+        "literals": [
+          "solidity",
+          "0.8",
+          ".10"
+        ]
+      },
+      {
+        "id": 2515,
+        "nodeType": "ImportDirective",
+        "src": "65:61:4",
+        "absolutePath": "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+        "file": "openzeppelin-contracts/contracts/access/Ownable.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 2843,
+        "sourceUnit": 1892,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 2516,
+        "nodeType": "ImportDirective",
+        "src": "127:74:4",
+        "absolutePath": "lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol",
+        "file": "openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 2843,
+        "sourceUnit": 2513,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 2518,
+        "nodeType": "ErrorDefinition",
+        "src": "203:29:4",
+        "name": "SubmissionFeeNotPaid",
+        "nameLocation": "209:20:4",
+        "parameters": {
+          "id": 2517,
+          "nodeType": "ParameterList",
+          "parameters": [],
+          "src": "229:2:4"
+        }
+      },
+      {
+        "id": 2520,
+        "nodeType": "ErrorDefinition",
+        "src": "233:26:4",
+        "name": "SubmissionsClosed",
+        "nameLocation": "239:17:4",
+        "parameters": {
+          "id": 2519,
+          "nodeType": "ParameterList",
+          "parameters": [],
+          "src": "256:2:4"
+        }
+      },
+      {
+        "id": 2842,
+        "nodeType": "ContractDefinition",
+        "src": "261:3274:4",
+        "nodes": [
+          {
+            "id": 2528,
+            "nodeType": "EventDefinition",
+            "src": "293:66:4",
+            "anonymous": false,
+            "name": "NewPublication",
+            "nameLocation": "299:14:4",
+            "parameters": {
+              "id": 2527,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2524,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "publicationId",
+                  "nameLocation": "330:13:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2528,
+                  "src": "314:29:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2523,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "314:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2526,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "title",
+                  "nameLocation": "352:5:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2528,
+                  "src": "345:12:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 2525,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "345:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "313:45:4"
+            }
+          },
+          {
+            "id": 2534,
+            "nodeType": "EventDefinition",
+            "src": "362:71:4",
+            "anonymous": false,
+            "name": "NewIssue",
+            "nameLocation": "368:8:4",
+            "parameters": {
+              "id": 2533,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2530,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "publicationId",
+                  "nameLocation": "393:13:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2534,
+                  "src": "377:29:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2529,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "377:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2532,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "issueId",
+                  "nameLocation": "424:7:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2534,
+                  "src": "408:23:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2531,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "408:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "376:56:4"
+            }
+          },
+          {
+            "id": 2544,
+            "nodeType": "EventDefinition",
+            "src": "436:122:4",
+            "anonymous": false,
+            "name": "NewSubmission",
+            "nameLocation": "442:13:4",
+            "parameters": {
+              "id": 2543,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2536,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "publicationId",
+                  "nameLocation": "472:13:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "456:29:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2535,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "456:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2538,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "issueId",
+                  "nameLocation": "503:7:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "487:23:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2537,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "487:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2540,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "submissionId",
+                  "nameLocation": "528:12:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "512:28:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2539,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "512:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2542,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "content",
+                  "nameLocation": "549:7:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "542:14:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 2541,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "542:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "455:102:4"
+            }
+          },
+          {
+            "id": 2554,
+            "nodeType": "StructDefinition",
+            "src": "562:107:4",
+            "canonicalName": "Journal.Publication",
+            "members": [
+              {
+                "constant": false,
+                "id": 2546,
+                "mutability": "mutable",
+                "name": "owner",
+                "nameLocation": "595:5:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2554,
+                "src": "587:13:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 2545,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "587:7:4",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2548,
+                "mutability": "mutable",
+                "name": "nextIssueId",
+                "nameLocation": "615:11:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2554,
+                "src": "607:19:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2547,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "607:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2553,
+                "mutability": "mutable",
+                "name": "issues",
+                "nameLocation": "658:6:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2554,
+                "src": "632:32:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                  "typeString": "mapping(uint256 => struct Journal.Issue)"
+                },
+                "typeName": {
+                  "id": 2552,
+                  "keyType": {
+                    "id": 2549,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "640:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "632:25:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                    "typeString": "mapping(uint256 => struct Journal.Issue)"
+                  },
+                  "valueType": {
+                    "id": 2551,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 2550,
+                      "name": "Issue",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 2574,
+                      "src": "651:5:4"
+                    },
+                    "referencedDeclaration": 2574,
+                    "src": "651:5:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                      "typeString": "struct Journal.Issue"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Publication",
+            "nameLocation": "569:11:4",
+            "scope": 2842,
+            "visibility": "public"
+          },
+          {
+            "id": 2574,
+            "nodeType": "StructDefinition",
+            "src": "673:296:4",
+            "canonicalName": "Journal.Issue",
+            "members": [
+              {
+                "constant": false,
+                "id": 2556,
+                "mutability": "mutable",
+                "name": "publicationId",
+                "nameLocation": "700:13:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "692:21:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2555,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "692:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2558,
+                "mutability": "mutable",
+                "name": "submissionsOpenBlock",
+                "nameLocation": "727:20:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "719:28:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2557,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "719:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2560,
+                "mutability": "mutable",
+                "name": "submissionsCloseBlock",
+                "nameLocation": "761:21:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "753:29:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2559,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "753:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2562,
+                "mutability": "mutable",
+                "name": "submissionFee",
+                "nameLocation": "796:13:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "788:21:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2561,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "788:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2564,
+                "mutability": "mutable",
+                "name": "collectedSubmissionFees",
+                "nameLocation": "823:23:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "815:31:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2563,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "815:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2566,
+                "mutability": "mutable",
+                "name": "distributedSubmissionFees",
+                "nameLocation": "860:25:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "852:33:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2565,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "852:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2568,
+                "mutability": "mutable",
+                "name": "nextSubmissionId",
+                "nameLocation": "900:16:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "892:24:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 2567,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "892:7:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 2573,
+                "mutability": "mutable",
+                "name": "submissions",
+                "nameLocation": "953:11:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2574,
+                "src": "922:42:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Submission_$2577_storage_$",
+                  "typeString": "mapping(uint256 => struct Journal.Submission)"
+                },
+                "typeName": {
+                  "id": 2572,
+                  "keyType": {
+                    "id": 2569,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "930:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "922:30:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Submission_$2577_storage_$",
+                    "typeString": "mapping(uint256 => struct Journal.Submission)"
+                  },
+                  "valueType": {
+                    "id": 2571,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 2570,
+                      "name": "Submission",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 2577,
+                      "src": "941:10:4"
+                    },
+                    "referencedDeclaration": 2577,
+                    "src": "941:10:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Submission_$2577_storage_ptr",
+                      "typeString": "struct Journal.Submission"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Issue",
+            "nameLocation": "680:5:4",
+            "scope": 2842,
+            "visibility": "public"
+          },
+          {
+            "id": 2577,
+            "nodeType": "StructDefinition",
+            "src": "973:46:4",
+            "canonicalName": "Journal.Submission",
+            "members": [
+              {
+                "constant": false,
+                "id": 2576,
+                "mutability": "mutable",
+                "name": "submitter",
+                "nameLocation": "1005:9:4",
+                "nodeType": "VariableDeclaration",
+                "scope": 2577,
+                "src": "997:17:4",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 2575,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "997:7:4",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Submission",
+            "nameLocation": "980:10:4",
+            "scope": 2842,
+            "visibility": "public"
+          },
+          {
+            "id": 2580,
+            "nodeType": "VariableDeclaration",
+            "src": "1023:29:4",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "nextPublicationId",
+            "nameLocation": "1031:17:4",
+            "scope": 2842,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 2578,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "1023:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "30",
+              "id": 2579,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "1051:1:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_0_by_1",
+                "typeString": "int_const 0"
+              },
+              "value": "0"
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 2585,
+            "nodeType": "VariableDeclaration",
+            "src": "1056:44:4",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "publications",
+            "nameLocation": "1088:12:4",
+            "scope": 2842,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+              "typeString": "mapping(uint256 => struct Journal.Publication)"
+            },
+            "typeName": {
+              "id": 2584,
+              "keyType": {
+                "id": 2581,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "1064:7:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "1056:31:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                "typeString": "mapping(uint256 => struct Journal.Publication)"
+              },
+              "valueType": {
+                "id": 2583,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 2582,
+                  "name": "Publication",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 2554,
+                  "src": "1075:11:4"
+                },
+                "referencedDeclaration": 2554,
+                "src": "1075:11:4",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                  "typeString": "struct Journal.Publication"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 2604,
+            "nodeType": "FunctionDefinition",
+            "src": "1123:174:4",
+            "body": {
+              "id": 2603,
+              "nodeType": "Block",
+              "src": "1220:77:4",
+              "statements": [
+                {
+                  "expression": {
+                    "expression": {
+                      "baseExpression": {
+                        "expression": {
+                          "baseExpression": {
+                            "id": 2595,
+                            "name": "publications",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2585,
+                            "src": "1233:12:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                              "typeString": "mapping(uint256 => struct Journal.Publication storage ref)"
+                            }
+                          },
+                          "id": 2597,
+                          "indexExpression": {
+                            "id": 2596,
+                            "name": "_publicationId",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2588,
+                            "src": "1246:14:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1233:28:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Publication_$2554_storage",
+                            "typeString": "struct Journal.Publication storage ref"
+                          }
+                        },
+                        "id": 2598,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "issues",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 2553,
+                        "src": "1233:35:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                          "typeString": "mapping(uint256 => struct Journal.Issue storage ref)"
+                        }
+                      },
+                      "id": 2600,
+                      "indexExpression": {
+                        "id": 2599,
+                        "name": "_issueId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2590,
+                        "src": "1269:8:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "1233:45:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Issue_$2574_storage",
+                        "typeString": "struct Journal.Issue storage ref"
+                      }
+                    },
+                    "id": 2601,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "submissionFee",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 2562,
+                    "src": "1233:59:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2594,
+                  "id": 2602,
+                  "nodeType": "Return",
+                  "src": "1226:66:4"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 2586,
+              "nodeType": "StructuredDocumentation",
+              "src": "1105:14:4",
+              "text": "queries "
+            },
+            "functionSelector": "f37a8f1c",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "submissionFee",
+            "nameLocation": "1132:13:4",
+            "parameters": {
+              "id": 2591,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2588,
+                  "mutability": "mutable",
+                  "name": "_publicationId",
+                  "nameLocation": "1154:14:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2604,
+                  "src": "1146:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2587,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1146:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2590,
+                  "mutability": "mutable",
+                  "name": "_issueId",
+                  "nameLocation": "1178:8:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2604,
+                  "src": "1170:16:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2589,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1170:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1145:42:4"
+            },
+            "returnParameters": {
+              "id": 2594,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2593,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2604,
+                  "src": "1211:7:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2592,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1211:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1210:9:4"
+            },
+            "scope": 2842,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 2622,
+            "nodeType": "FunctionDefinition",
+            "src": "1301:194:4",
+            "body": {
+              "id": 2621,
+              "nodeType": "Block",
+              "src": "1408:87:4",
+              "statements": [
+                {
+                  "expression": {
+                    "expression": {
+                      "baseExpression": {
+                        "expression": {
+                          "baseExpression": {
+                            "id": 2613,
+                            "name": "publications",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2585,
+                            "src": "1421:12:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                              "typeString": "mapping(uint256 => struct Journal.Publication storage ref)"
+                            }
+                          },
+                          "id": 2615,
+                          "indexExpression": {
+                            "id": 2614,
+                            "name": "_publicationId",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2606,
+                            "src": "1434:14:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1421:28:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Publication_$2554_storage",
+                            "typeString": "struct Journal.Publication storage ref"
+                          }
+                        },
+                        "id": 2616,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "issues",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 2553,
+                        "src": "1421:35:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                          "typeString": "mapping(uint256 => struct Journal.Issue storage ref)"
+                        }
+                      },
+                      "id": 2618,
+                      "indexExpression": {
+                        "id": 2617,
+                        "name": "_issueId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2608,
+                        "src": "1457:8:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "1421:45:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Issue_$2574_storage",
+                        "typeString": "struct Journal.Issue storage ref"
+                      }
+                    },
+                    "id": 2619,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "collectedSubmissionFees",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 2564,
+                    "src": "1421:69:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2612,
+                  "id": 2620,
+                  "nodeType": "Return",
+                  "src": "1414:76:4"
+                }
+              ]
+            },
+            "functionSelector": "3daf84bb",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "collectedSubmissionFees",
+            "nameLocation": "1310:23:4",
+            "parameters": {
+              "id": 2609,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2606,
+                  "mutability": "mutable",
+                  "name": "_publicationId",
+                  "nameLocation": "1342:14:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2622,
+                  "src": "1334:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2605,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1334:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2608,
+                  "mutability": "mutable",
+                  "name": "_issueId",
+                  "nameLocation": "1366:8:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2622,
+                  "src": "1358:16:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2607,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1358:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1333:42:4"
+            },
+            "returnParameters": {
+              "id": 2612,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2611,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2622,
+                  "src": "1399:7:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2610,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1399:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1398:9:4"
+            },
+            "scope": 2842,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 2640,
+            "nodeType": "FunctionDefinition",
+            "src": "1499:198:4",
+            "body": {
+              "id": 2639,
+              "nodeType": "Block",
+              "src": "1608:89:4",
+              "statements": [
+                {
+                  "expression": {
+                    "expression": {
+                      "baseExpression": {
+                        "expression": {
+                          "baseExpression": {
+                            "id": 2631,
+                            "name": "publications",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2585,
+                            "src": "1621:12:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                              "typeString": "mapping(uint256 => struct Journal.Publication storage ref)"
+                            }
+                          },
+                          "id": 2633,
+                          "indexExpression": {
+                            "id": 2632,
+                            "name": "_publicationId",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2624,
+                            "src": "1634:14:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1621:28:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Publication_$2554_storage",
+                            "typeString": "struct Journal.Publication storage ref"
+                          }
+                        },
+                        "id": 2634,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "issues",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 2553,
+                        "src": "1621:35:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                          "typeString": "mapping(uint256 => struct Journal.Issue storage ref)"
+                        }
+                      },
+                      "id": 2636,
+                      "indexExpression": {
+                        "id": 2635,
+                        "name": "_issueId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2626,
+                        "src": "1657:8:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "1621:45:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Issue_$2574_storage",
+                        "typeString": "struct Journal.Issue storage ref"
+                      }
+                    },
+                    "id": 2637,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "distributedSubmissionFees",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 2566,
+                    "src": "1621:71:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2630,
+                  "id": 2638,
+                  "nodeType": "Return",
+                  "src": "1614:78:4"
+                }
+              ]
+            },
+            "functionSelector": "9e79c104",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "distributedSubmissionFees",
+            "nameLocation": "1508:25:4",
+            "parameters": {
+              "id": 2627,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2624,
+                  "mutability": "mutable",
+                  "name": "_publicationId",
+                  "nameLocation": "1542:14:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2640,
+                  "src": "1534:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2623,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1534:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2626,
+                  "mutability": "mutable",
+                  "name": "_issueId",
+                  "nameLocation": "1566:8:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2640,
+                  "src": "1558:16:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2625,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1558:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1533:42:4"
+            },
+            "returnParameters": {
+              "id": 2630,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2629,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2640,
+                  "src": "1599:7:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2628,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1599:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1598:9:4"
+            },
+            "scope": 2842,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 2658,
+            "nodeType": "FunctionDefinition",
+            "src": "1701:180:4",
+            "body": {
+              "id": 2657,
+              "nodeType": "Block",
+              "src": "1801:80:4",
+              "statements": [
+                {
+                  "expression": {
+                    "expression": {
+                      "baseExpression": {
+                        "expression": {
+                          "baseExpression": {
+                            "id": 2649,
+                            "name": "publications",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2585,
+                            "src": "1814:12:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                              "typeString": "mapping(uint256 => struct Journal.Publication storage ref)"
+                            }
+                          },
+                          "id": 2651,
+                          "indexExpression": {
+                            "id": 2650,
+                            "name": "_publicationId",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2642,
+                            "src": "1827:14:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1814:28:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Publication_$2554_storage",
+                            "typeString": "struct Journal.Publication storage ref"
+                          }
+                        },
+                        "id": 2652,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "issues",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 2553,
+                        "src": "1814:35:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                          "typeString": "mapping(uint256 => struct Journal.Issue storage ref)"
+                        }
+                      },
+                      "id": 2654,
+                      "indexExpression": {
+                        "id": 2653,
+                        "name": "_issueId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2644,
+                        "src": "1850:8:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "1814:45:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Issue_$2574_storage",
+                        "typeString": "struct Journal.Issue storage ref"
+                      }
+                    },
+                    "id": 2655,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "nextSubmissionId",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 2568,
+                    "src": "1814:62:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 2648,
+                  "id": 2656,
+                  "nodeType": "Return",
+                  "src": "1807:69:4"
+                }
+              ]
+            },
+            "functionSelector": "88d9c89f",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "submissionsCount",
+            "nameLocation": "1710:16:4",
+            "parameters": {
+              "id": 2645,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2642,
+                  "mutability": "mutable",
+                  "name": "_publicationId",
+                  "nameLocation": "1735:14:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2658,
+                  "src": "1727:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2641,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1727:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2644,
+                  "mutability": "mutable",
+                  "name": "_issueId",
+                  "nameLocation": "1759:8:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2658,
+                  "src": "1751:16:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2643,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1751:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1726:42:4"
+            },
+            "returnParameters": {
+              "id": 2648,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2647,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2658,
+                  "src": "1792:7:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2646,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1792:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1791:9:4"
+            },
+            "scope": 2842,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 2689,
+            "nodeType": "FunctionDefinition",
+            "src": "1904:261:4",
+            "body": {
+              "id": 2688,
+              "nodeType": "Block",
+              "src": "1962:203:4",
+              "statements": [
+                {
+                  "assignments": [
+                    2665
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2665,
+                      "mutability": "mutable",
+                      "name": "publicationId",
+                      "nameLocation": "1976:13:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2688,
+                      "src": "1968:21:4",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 2664,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1968:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2668,
+                  "initialValue": {
+                    "id": 2667,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "++",
+                    "prefix": false,
+                    "src": "1992:19:4",
+                    "subExpression": {
+                      "id": 2666,
+                      "name": "nextPublicationId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2580,
+                      "src": "1992:17:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1968:43:4"
+                },
+                {
+                  "assignments": [
+                    2671
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2671,
+                      "mutability": "mutable",
+                      "name": "publication",
+                      "nameLocation": "2037:11:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2688,
+                      "src": "2017:31:4",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                        "typeString": "struct Journal.Publication"
+                      },
+                      "typeName": {
+                        "id": 2670,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 2669,
+                          "name": "Publication",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 2554,
+                          "src": "2017:11:4"
+                        },
+                        "referencedDeclaration": 2554,
+                        "src": "2017:11:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                          "typeString": "struct Journal.Publication"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2675,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 2672,
+                      "name": "publications",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2585,
+                      "src": "2051:12:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                        "typeString": "mapping(uint256 => struct Journal.Publication storage ref)"
+                      }
+                    },
+                    "id": 2674,
+                    "indexExpression": {
+                      "id": 2673,
+                      "name": "publicationId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2665,
+                      "src": "2064:13:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "2051:27:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Publication_$2554_storage",
+                      "typeString": "struct Journal.Publication storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "2017:61:4"
+                },
+                {
+                  "expression": {
+                    "id": 2681,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 2676,
+                        "name": "publication",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2671,
+                        "src": "2084:11:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                          "typeString": "struct Journal.Publication storage pointer"
+                        }
+                      },
+                      "id": 2678,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "owner",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2546,
+                      "src": "2084:17:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 2679,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -15,
+                        "src": "2104:3:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 2680,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "src": "2104:10:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "2084:30:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 2682,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2084:30:4"
+                },
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "id": 2684,
+                        "name": "publicationId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2665,
+                        "src": "2140:13:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 2685,
+                        "name": "name",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2661,
+                        "src": "2155:4:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_calldata_ptr",
+                          "typeString": "string calldata"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_string_calldata_ptr",
+                          "typeString": "string calldata"
+                        }
+                      ],
+                      "id": 2683,
+                      "name": "NewPublication",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2528,
+                      "src": "2125:14:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (uint256,string memory)"
+                      }
+                    },
+                    "id": 2686,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2125:35:4",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2687,
+                  "nodeType": "EmitStatement",
+                  "src": "2120:40:4"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 2659,
+              "nodeType": "StructuredDocumentation",
+              "src": "1885:15:4",
+              "text": "commands "
+            },
+            "functionSelector": "ab31a033",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createPublication",
+            "nameLocation": "1913:17:4",
+            "parameters": {
+              "id": 2662,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2661,
+                  "mutability": "mutable",
+                  "name": "name",
+                  "nameLocation": "1947:4:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2689,
+                  "src": "1931:20:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_calldata_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 2660,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1931:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1930:22:4"
+            },
+            "returnParameters": {
+              "id": 2663,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1962:0:4"
+            },
+            "scope": 2842,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 2755,
+            "nodeType": "FunctionDefinition",
+            "src": "2169:610:4",
+            "body": {
+              "id": 2754,
+              "nodeType": "Block",
+              "src": "2340:439:4",
+              "statements": [
+                {
+                  "assignments": [
+                    2704
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2704,
+                      "mutability": "mutable",
+                      "name": "publication",
+                      "nameLocation": "2366:11:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2754,
+                      "src": "2346:31:4",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                        "typeString": "struct Journal.Publication"
+                      },
+                      "typeName": {
+                        "id": 2703,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 2702,
+                          "name": "Publication",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 2554,
+                          "src": "2346:11:4"
+                        },
+                        "referencedDeclaration": 2554,
+                        "src": "2346:11:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                          "typeString": "struct Journal.Publication"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2708,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 2705,
+                      "name": "publications",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2585,
+                      "src": "2380:12:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                        "typeString": "mapping(uint256 => struct Journal.Publication storage ref)"
+                      }
+                    },
+                    "id": 2707,
+                    "indexExpression": {
+                      "id": 2706,
+                      "name": "_publicationId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2691,
+                      "src": "2393:14:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "2380:28:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Publication_$2554_storage",
+                      "typeString": "struct Journal.Publication storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "2346:62:4"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 2714,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 2710,
+                            "name": "publication",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2704,
+                            "src": "2422:11:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                              "typeString": "struct Journal.Publication storage pointer"
+                            }
+                          },
+                          "id": 2711,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "owner",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 2546,
+                          "src": "2422:17:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "expression": {
+                            "id": 2712,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -15,
+                            "src": "2443:3:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 2713,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "src": "2443:10:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "2422:31:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 2709,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "2414:7:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 2715,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2414:40:4",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2716,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2414:40:4"
+                },
+                {
+                  "assignments": [
+                    2718
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2718,
+                      "mutability": "mutable",
+                      "name": "issueId",
+                      "nameLocation": "2468:7:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2754,
+                      "src": "2460:15:4",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 2717,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "2460:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2722,
+                  "initialValue": {
+                    "id": 2721,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "++",
+                    "prefix": false,
+                    "src": "2478:25:4",
+                    "subExpression": {
+                      "expression": {
+                        "id": 2719,
+                        "name": "publication",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2704,
+                        "src": "2478:11:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                          "typeString": "struct Journal.Publication storage pointer"
+                        }
+                      },
+                      "id": 2720,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "nextIssueId",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2548,
+                      "src": "2478:23:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "2460:43:4"
+                },
+                {
+                  "assignments": [
+                    2725
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2725,
+                      "mutability": "mutable",
+                      "name": "nextIssue",
+                      "nameLocation": "2523:9:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2754,
+                      "src": "2509:23:4",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                        "typeString": "struct Journal.Issue"
+                      },
+                      "typeName": {
+                        "id": 2724,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 2723,
+                          "name": "Issue",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 2574,
+                          "src": "2509:5:4"
+                        },
+                        "referencedDeclaration": 2574,
+                        "src": "2509:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2730,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 2726,
+                        "name": "publication",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2704,
+                        "src": "2535:11:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                          "typeString": "struct Journal.Publication storage pointer"
+                        }
+                      },
+                      "id": 2727,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "issues",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2553,
+                      "src": "2535:18:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                        "typeString": "mapping(uint256 => struct Journal.Issue storage ref)"
+                      }
+                    },
+                    "id": 2729,
+                    "indexExpression": {
+                      "id": 2728,
+                      "name": "issueId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2718,
+                      "src": "2554:7:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "2535:27:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Issue_$2574_storage",
+                      "typeString": "struct Journal.Issue storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "2509:53:4"
+                },
+                {
+                  "expression": {
+                    "id": 2735,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 2731,
+                        "name": "nextIssue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2725,
+                        "src": "2568:9:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue storage pointer"
+                        }
+                      },
+                      "id": 2733,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "submissionsOpenBlock",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2558,
+                      "src": "2568:30:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 2734,
+                      "name": "_submissionsOpenBlock",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2693,
+                      "src": "2601:21:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "2568:54:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 2736,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2568:54:4"
+                },
+                {
+                  "expression": {
+                    "id": 2741,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 2737,
+                        "name": "nextIssue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2725,
+                        "src": "2628:9:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue storage pointer"
+                        }
+                      },
+                      "id": 2739,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "submissionsCloseBlock",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2560,
+                      "src": "2628:31:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 2740,
+                      "name": "_submissionsCloseBlock",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2695,
+                      "src": "2662:22:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "2628:56:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 2742,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2628:56:4"
+                },
+                {
+                  "expression": {
+                    "id": 2747,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 2743,
+                        "name": "nextIssue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2725,
+                        "src": "2690:9:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue storage pointer"
+                        }
+                      },
+                      "id": 2745,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "submissionFee",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2562,
+                      "src": "2690:23:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 2746,
+                      "name": "_submissionFee",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2697,
+                      "src": "2716:14:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "2690:40:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 2748,
+                  "nodeType": "ExpressionStatement",
+                  "src": "2690:40:4"
+                },
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "id": 2750,
+                        "name": "_publicationId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2691,
+                        "src": "2750:14:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 2751,
+                        "name": "issueId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2718,
+                        "src": "2766:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 2749,
+                      "name": "NewIssue",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2534,
+                      "src": "2741:8:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$returns$__$",
+                        "typeString": "function (uint256,uint256)"
+                      }
+                    },
+                    "id": 2752,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2741:33:4",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2753,
+                  "nodeType": "EmitStatement",
+                  "src": "2736:38:4"
+                }
+              ]
+            },
+            "functionSelector": "aab96d7f",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "id": 2700,
+                "kind": "modifierInvocation",
+                "modifierName": {
+                  "id": 2699,
+                  "name": "onlyOwner",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 1833,
+                  "src": "2330:9:4"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "2330:9:4"
+              }
+            ],
+            "name": "createIssue",
+            "nameLocation": "2178:11:4",
+            "parameters": {
+              "id": 2698,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2691,
+                  "mutability": "mutable",
+                  "name": "_publicationId",
+                  "nameLocation": "2203:14:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2755,
+                  "src": "2195:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2690,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2195:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2693,
+                  "mutability": "mutable",
+                  "name": "_submissionsOpenBlock",
+                  "nameLocation": "2231:21:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2755,
+                  "src": "2223:29:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2692,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2223:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2695,
+                  "mutability": "mutable",
+                  "name": "_submissionsCloseBlock",
+                  "nameLocation": "2266:22:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2755,
+                  "src": "2258:30:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2694,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2258:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2697,
+                  "mutability": "mutable",
+                  "name": "_submissionFee",
+                  "nameLocation": "2302:14:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2755,
+                  "src": "2294:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2696,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2294:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2189:131:4"
+            },
+            "returnParameters": {
+              "id": 2701,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2340:0:4"
+            },
+            "scope": 2842,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 2841,
+            "nodeType": "FunctionDefinition",
+            "src": "2783:750:4",
+            "body": {
+              "id": 2840,
+              "nodeType": "Block",
+              "src": "2893:640:4",
+              "statements": [
+                {
+                  "assignments": [
+                    2766
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2766,
+                      "mutability": "mutable",
+                      "name": "publication",
+                      "nameLocation": "2919:11:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2840,
+                      "src": "2899:31:4",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                        "typeString": "struct Journal.Publication"
+                      },
+                      "typeName": {
+                        "id": 2765,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 2764,
+                          "name": "Publication",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 2554,
+                          "src": "2899:11:4"
+                        },
+                        "referencedDeclaration": 2554,
+                        "src": "2899:11:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                          "typeString": "struct Journal.Publication"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2770,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 2767,
+                      "name": "publications",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2585,
+                      "src": "2933:12:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Publication_$2554_storage_$",
+                        "typeString": "mapping(uint256 => struct Journal.Publication storage ref)"
+                      }
+                    },
+                    "id": 2769,
+                    "indexExpression": {
+                      "id": 2768,
+                      "name": "_publicationId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2757,
+                      "src": "2946:14:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "2933:28:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Publication_$2554_storage",
+                      "typeString": "struct Journal.Publication storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "2899:62:4"
+                },
+                {
+                  "assignments": [
+                    2773
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2773,
+                      "mutability": "mutable",
+                      "name": "issue",
+                      "nameLocation": "2981:5:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2840,
+                      "src": "2967:19:4",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                        "typeString": "struct Journal.Issue"
+                      },
+                      "typeName": {
+                        "id": 2772,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 2771,
+                          "name": "Issue",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 2574,
+                          "src": "2967:5:4"
+                        },
+                        "referencedDeclaration": 2574,
+                        "src": "2967:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2778,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 2774,
+                        "name": "publication",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2766,
+                        "src": "2989:11:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Publication_$2554_storage_ptr",
+                          "typeString": "struct Journal.Publication storage pointer"
+                        }
+                      },
+                      "id": 2775,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "issues",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2553,
+                      "src": "2989:18:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Issue_$2574_storage_$",
+                        "typeString": "mapping(uint256 => struct Journal.Issue storage ref)"
+                      }
+                    },
+                    "id": 2777,
+                    "indexExpression": {
+                      "id": 2776,
+                      "name": "_issueId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2759,
+                      "src": "3008:8:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "2989:28:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Issue_$2574_storage",
+                      "typeString": "struct Journal.Issue storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "2967:50:4"
+                },
+                {
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "id": 2789,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 2783,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "expression": {
+                          "id": 2779,
+                          "name": "block",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -4,
+                          "src": "3028:5:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_block",
+                            "typeString": "block"
+                          }
+                        },
+                        "id": 2780,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "number",
+                        "nodeType": "MemberAccess",
+                        "src": "3028:12:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "<",
+                      "rightExpression": {
+                        "expression": {
+                          "id": 2781,
+                          "name": "issue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2773,
+                          "src": "3043:5:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                            "typeString": "struct Journal.Issue storage pointer"
+                          }
+                        },
+                        "id": 2782,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "submissionsOpenBlock",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 2558,
+                        "src": "3043:26:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "src": "3028:41:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "||",
+                    "rightExpression": {
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 2788,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "expression": {
+                          "id": 2784,
+                          "name": "block",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -4,
+                          "src": "3073:5:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_block",
+                            "typeString": "block"
+                          }
+                        },
+                        "id": 2785,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "number",
+                        "nodeType": "MemberAccess",
+                        "src": "3073:12:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": ">",
+                      "rightExpression": {
+                        "expression": {
+                          "id": 2786,
+                          "name": "issue",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 2773,
+                          "src": "3088:5:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                            "typeString": "struct Journal.Issue storage pointer"
+                          }
+                        },
+                        "id": 2787,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "submissionsCloseBlock",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 2560,
+                        "src": "3088:27:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "src": "3073:42:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "3028:87:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 2794,
+                  "nodeType": "IfStatement",
+                  "src": "3024:134:4",
+                  "trueBody": {
+                    "id": 2793,
+                    "nodeType": "Block",
+                    "src": "3117:41:4",
+                    "statements": [
+                      {
+                        "errorCall": {
+                          "arguments": [],
+                          "expression": {
+                            "argumentTypes": [],
+                            "id": 2790,
+                            "name": "SubmissionsClosed",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2520,
+                            "src": "3132:17:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_error_pure$__$returns$__$",
+                              "typeString": "function () pure"
+                            }
+                          },
+                          "id": 2791,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "3132:19:4",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 2792,
+                        "nodeType": "RevertStatement",
+                        "src": "3125:26:4"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 2799,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 2795,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -15,
+                        "src": "3168:3:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 2796,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "value",
+                      "nodeType": "MemberAccess",
+                      "src": "3168:9:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "!=",
+                    "rightExpression": {
+                      "expression": {
+                        "id": 2797,
+                        "name": "issue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2773,
+                        "src": "3181:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue storage pointer"
+                        }
+                      },
+                      "id": 2798,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "submissionFee",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2562,
+                      "src": "3181:19:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "3168:32:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 2804,
+                  "nodeType": "IfStatement",
+                  "src": "3164:82:4",
+                  "trueBody": {
+                    "id": 2803,
+                    "nodeType": "Block",
+                    "src": "3202:44:4",
+                    "statements": [
+                      {
+                        "errorCall": {
+                          "arguments": [],
+                          "expression": {
+                            "argumentTypes": [],
+                            "id": 2800,
+                            "name": "SubmissionFeeNotPaid",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2518,
+                            "src": "3217:20:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_error_pure$__$returns$__$",
+                              "typeString": "function () pure"
+                            }
+                          },
+                          "id": 2801,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "3217:22:4",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 2802,
+                        "nodeType": "RevertStatement",
+                        "src": "3210:29:4"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "assignments": [
+                    2806
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2806,
+                      "mutability": "mutable",
+                      "name": "submissionId",
+                      "nameLocation": "3260:12:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2840,
+                      "src": "3252:20:4",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 2805,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "3252:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2810,
+                  "initialValue": {
+                    "id": 2809,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "++",
+                    "prefix": false,
+                    "src": "3275:24:4",
+                    "subExpression": {
+                      "expression": {
+                        "id": 2807,
+                        "name": "issue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2773,
+                        "src": "3275:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue storage pointer"
+                        }
+                      },
+                      "id": 2808,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "nextSubmissionId",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2568,
+                      "src": "3275:22:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "3252:47:4"
+                },
+                {
+                  "assignments": [
+                    2813
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 2813,
+                      "mutability": "mutable",
+                      "name": "submission",
+                      "nameLocation": "3324:10:4",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 2840,
+                      "src": "3305:29:4",
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Submission_$2577_storage_ptr",
+                        "typeString": "struct Journal.Submission"
+                      },
+                      "typeName": {
+                        "id": 2812,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 2811,
+                          "name": "Submission",
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 2577,
+                          "src": "3305:10:4"
+                        },
+                        "referencedDeclaration": 2577,
+                        "src": "3305:10:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Submission_$2577_storage_ptr",
+                          "typeString": "struct Journal.Submission"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 2818,
+                  "initialValue": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 2814,
+                        "name": "issue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2773,
+                        "src": "3337:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue storage pointer"
+                        }
+                      },
+                      "id": 2815,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "submissions",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2573,
+                      "src": "3337:17:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Submission_$2577_storage_$",
+                        "typeString": "mapping(uint256 => struct Journal.Submission storage ref)"
+                      }
+                    },
+                    "id": 2817,
+                    "indexExpression": {
+                      "id": 2816,
+                      "name": "submissionId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2806,
+                      "src": "3355:12:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "3337:31:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Submission_$2577_storage",
+                      "typeString": "struct Journal.Submission storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "3305:63:4"
+                },
+                {
+                  "expression": {
+                    "id": 2824,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 2819,
+                        "name": "submission",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2813,
+                        "src": "3374:10:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Submission_$2577_storage_ptr",
+                          "typeString": "struct Journal.Submission storage pointer"
+                        }
+                      },
+                      "id": 2821,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "submitter",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2576,
+                      "src": "3374:20:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 2822,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -15,
+                        "src": "3397:3:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 2823,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "src": "3397:10:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "3374:33:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 2825,
+                  "nodeType": "ExpressionStatement",
+                  "src": "3374:33:4"
+                },
+                {
+                  "expression": {
+                    "id": 2831,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 2826,
+                        "name": "issue",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2773,
+                        "src": "3413:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Issue_$2574_storage_ptr",
+                          "typeString": "struct Journal.Issue storage pointer"
+                        }
+                      },
+                      "id": 2828,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "collectedSubmissionFees",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 2564,
+                      "src": "3413:29:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "+=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 2829,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -15,
+                        "src": "3446:3:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 2830,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "value",
+                      "nodeType": "MemberAccess",
+                      "src": "3446:9:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "3413:42:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 2832,
+                  "nodeType": "ExpressionStatement",
+                  "src": "3413:42:4"
+                },
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "id": 2834,
+                        "name": "_publicationId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2757,
+                        "src": "3480:14:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 2835,
+                        "name": "_issueId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2759,
+                        "src": "3496:8:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 2836,
+                        "name": "submissionId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2806,
+                        "src": "3506:12:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 2837,
+                        "name": "content",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2761,
+                        "src": "3520:7:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_calldata_ptr",
+                          "typeString": "string calldata"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_string_calldata_ptr",
+                          "typeString": "string calldata"
+                        }
+                      ],
+                      "id": 2833,
+                      "name": "NewSubmission",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2544,
+                      "src": "3466:13:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$_t_uint256_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (uint256,uint256,uint256,string memory)"
+                      }
+                    },
+                    "id": 2838,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "3466:62:4",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2839,
+                  "nodeType": "EmitStatement",
+                  "src": "3461:67:4"
+                }
+              ]
+            },
+            "functionSelector": "23ec26d7",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createSubmission",
+            "nameLocation": "2792:16:4",
+            "parameters": {
+              "id": 2762,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2757,
+                  "mutability": "mutable",
+                  "name": "_publicationId",
+                  "nameLocation": "2817:14:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2841,
+                  "src": "2809:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2756,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2809:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2759,
+                  "mutability": "mutable",
+                  "name": "_issueId",
+                  "nameLocation": "2841:8:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2841,
+                  "src": "2833:16:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2758,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2833:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2761,
+                  "mutability": "mutable",
+                  "name": "content",
+                  "nameLocation": "2867:7:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2841,
+                  "src": "2851:23:4",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_calldata_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 2760,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2851:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2808:67:4"
+            },
+            "returnParameters": {
+              "id": 2763,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2893:0:4"
+            },
+            "scope": 2842,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 2521,
+              "name": "Ownable",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 1891,
+              "src": "281:7:4"
+            },
+            "id": 2522,
+            "nodeType": "InheritanceSpecifier",
+            "src": "281:7:4"
+          }
+        ],
+        "canonicalName": "Journal",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          2842,
+          1891,
+          1913
+        ],
+        "name": "Journal",
+        "nameLocation": "270:7:4",
+        "scope": 2843,
+        "usedErrors": [
+          2518,
+          2520
+        ]
+      }
+    ],
+    "license": "UNLICENSED"
+  },
+  "id": 4
+}

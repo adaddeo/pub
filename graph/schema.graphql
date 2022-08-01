@@ -1,0 +1,26 @@
+type Issue @entity {
+  id: ID!
+  contractId: BigInt!
+  number: BigInt!
+  publication: Publication!
+  submissions: [Submission!]! @derivedFrom(field: "issue")
+}
+
+type Publication @entity {
+  id: ID!
+  contractId: BigInt!
+  title: String!
+  issuesCount: BigInt!
+  issues: [Issue!]! @derivedFrom(field: "publication")
+  submissions: [Submission!]! @derivedFrom(field: "publication")
+}
+
+type Submission @entity {
+  id: ID!
+  contractId: BigInt!
+  submitter: Bytes!
+  title: String!
+  body: String!
+  issue: Issue!
+  publication: Publication!
+}

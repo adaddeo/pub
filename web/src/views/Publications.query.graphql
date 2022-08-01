@@ -1,0 +1,11 @@
+query Publications {
+  publications {
+    id
+    title
+    issuesCount
+    issues {
+      id
+      number
+    }
+  }
+}

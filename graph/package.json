@@ -1,0 +1,16 @@
+{
+  "name": "journal-graph",
+  "version": "0.0.1",
+  "scripts": {
+    "create": "graph create adaddeo/journal --node https://api.thegraph.com/deploy/",
+    "create-local": "graph create adaddeo/journal --node http://127.0.0.1:8020",
+    "gen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy adaddeo/journal --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy-local": "graph deploy adaddeo/journal --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.33.0",
+    "@graphprotocol/graph-ts": "^0.27.0"
+  }
+}

@@ -1,0 +1,29 @@
+specVersion: 0.0.4
+description: Journal
+repository: https://github.com/graphprotocol/example-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Journal
+    network: mainnet
+    source:
+      address: "0x5fbdb2315678afecb367f032d93f642f64180aa3"
+      abi: Journal
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Issues
+        - Pulication
+        - Submission
+      abis:
+        - name: Journal
+          file: ./abis/Journal.json
+      eventHandlers:
+        - event: NewPublication(indexed uint256,string)
+          handler: handleNewPublication
+        - event: NewIssue(indexed uint256,indexed uint256)
+          handler: handleNewIssue
+      file: ./src/mapping.ts
