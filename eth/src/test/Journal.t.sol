@@ -114,19 +114,21 @@ contract JournalTest is Test {
   /** publishIssue */
 
 
-  function testFailWithoutPermissions() public {
+  function testCannotPublishWithoutPermissions() public {
     uint256[] memory submissionIds;
     journal.createPublication("Journal");
     journal.createIssue(0, 0, 2, 0.01 ether);
+    vm.expectRevert(Journal.PermissionDenied.selector);
     vm.prank(address(0));
     journal.publishIssue(0, 0, submissionIds, "issuedata");
   }
 
-  function testFailAlreadyPublishedIssue() public {
+  function testCannotPublishAlreadyPublishedIssue() public {
     uint256[] memory submissionIds;
     journal.createPublication("Journal");
     journal.createIssue(0, 0, 2, 0.01 ether);
     journal.publishIssue(0, 0, submissionIds, "issuedata");
+    vm.expectRevert(Journal.IssueAlreadyPublished.selector);
     journal.publishIssue(0, 0, submissionIds, "issuedata");
   }
 

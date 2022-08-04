@@ -5,11 +5,6 @@ pragma solidity 0.8.10;
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 import "openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol";
 
-error SubmissionFeeNotPaid();
-error SubmissionsClosed();
-error InvalidSubmissionId(uint256 submissionId);
-error IssueAlreadyPublished();
-
 contract Journal is Ownable {
   event IssuePublished(uint256 indexed publicationId, uint256 indexed issueId, uint256[] _submissionIds, string data);
   event NewPublication(uint256 indexed publicationId, string title);
@@ -106,7 +101,9 @@ contract Journal is Ownable {
 
   function publishIssue(uint256 _publicationId, uint256 _issueId, uint256[] calldata _submissionIds, string calldata data) external {
     Publication storage publication = publications[_publicationId];
-    require(publication.owner == msg.sender, "permission denied");
+    if (publication.owner != msg.sender) {
+      revert PermissionDenied();
+    }
     Issue storage issue = publication.issues[_issueId];
     if (issue.publishedAt != 0) {
       revert IssueAlreadyPublished();
@@ -126,4 +123,9 @@ contract Journal is Ownable {
     emit IssuePublished(_publicationId, _issueId, _submissionIds, data);
   }
 
+  error InvalidSubmissionId(uint256 submissionId);
+  error IssueAlreadyPublished();
+  error PermissionDenied();
+  error SubmissionFeeNotPaid();
+  error SubmissionsClosed();
 }
