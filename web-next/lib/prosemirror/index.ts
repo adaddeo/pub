@@ -1,7 +1,8 @@
 import { keymap } from "prosemirror-keymap";
 import { history } from "prosemirror-history";
 import { baseKeymap } from "prosemirror-commands";
-import { Schema } from "prosemirror-model";
+import { NodeType, Schema } from "prosemirror-model";
+import { isEmpty } from "lodash";
 import { buildInputRules } from "./inputRules";
 import { buildKeymap } from "./keymap";
 
@@ -11,14 +12,29 @@ import { Decoration, DecorationSet, EditorView } from "prosemirror-view";
 let purplePlugin = new Plugin({
   props: {
     decorations(state) {
-      if (state.doc.firstChild?.textContent) {
-        return DecorationSet.create(state.doc, [
-          Decoration.inline(0, state.doc.content.size, {
-            "data-placholder": "Title",
-            style: "color: purple",
-          }),
-        ]);
-      }
+      const decorations: Decoration[] = [];
+
+      state.doc.descendants((node, pos) => {
+        if (node.type.name == "title" && isEmpty(node.textContent)) {
+          decorations.push(
+            Decoration.node(pos, pos + node.nodeSize, {
+              "data-placeholder": "Title",
+            })
+          );
+        }
+
+        if (node.type.name == "body" && isEmpty(node.textContent)) {
+          decorations.push(
+            Decoration.node(pos, pos + node.nodeSize, {
+              "data-placeholder": "Body",
+            })
+          );
+        }
+
+        return false;
+      });
+
+      return DecorationSet.create(state.doc, decorations);
     },
   },
 });

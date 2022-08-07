@@ -1,19 +1,28 @@
 import { DOMOutputSpec, MarkSpec, NodeSpec, Schema } from "prosemirror-model";
 
-const pDOM: DOMOutputSpec = ["p", 0],
-  brDOM: DOMOutputSpec = ["br"],
-  h1DOM: DOMOutputSpec = ["h1", 0];
+const pDOM: DOMOutputSpec = ["p", 0];
+const brDOM: DOMOutputSpec = ["br"];
+const h1DOM: DOMOutputSpec = ["h1", 0];
+const divDOM: DOMOutputSpec = ["div", 0];
 
 const nodes = {
   doc: {
-    content: "title block+",
+    content: "title body",
   } as NodeSpec,
 
   title: {
-    content: "inline*",
+    content: "headingInline*",
     parseDOM: [{ tag: "h1" }],
     toDOM() {
       return h1DOM;
+    },
+  } as NodeSpec,
+
+  body: {
+    content: "block+",
+    parseDOM: [{ tag: "div" }],
+    toDOM() {
+      return divDOM;
     },
   } as NodeSpec,
 
@@ -27,7 +36,7 @@ const nodes = {
   } as NodeSpec,
 
   text: {
-    group: "inline",
+    group: "inline headingInline",
   } as NodeSpec,
 
   hard_break: {

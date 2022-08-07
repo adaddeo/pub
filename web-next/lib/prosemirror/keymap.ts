@@ -17,7 +17,7 @@ import {
 } from "prosemirror-schema-list";
 import { undo, redo } from "prosemirror-history";
 import { undoInputRule } from "prosemirror-inputrules";
-import { Command } from "prosemirror-state";
+import { Command, Selection } from "prosemirror-state";
 import { Schema } from "prosemirror-model";
 
 const mac =
@@ -121,6 +121,41 @@ export function buildKeymap(
       return true;
     });
   }
+
+  bind("Tab", (state, dispatch) => {
+    const { $head, $anchor } = state.selection;
+    if ($head.parent.type.name !== "title") {
+      return false;
+    }
+    const pos = $head.after();
+    const tr = state.tr.setSelection(
+      Selection.near(state.tr.doc.resolve(pos), 1)
+    );
+
+    if (dispatch) {
+      dispatch(tr.scrollIntoView());
+    }
+
+    return true;
+  });
+
+  // if we're in the title block and encounter Enter, jump to body
+  bind("Enter", (state, dispatch) => {
+    const { $head, $anchor } = state.selection;
+    if ($head.parent.type.name !== "title") {
+      return false;
+    }
+    const pos = $head.after();
+    const tr = state.tr.setSelection(
+      Selection.near(state.tr.doc.resolve(pos), 1)
+    );
+
+    if (dispatch) {
+      dispatch(tr.scrollIntoView());
+    }
+
+    return true;
+  });
 
   return keys;
 }

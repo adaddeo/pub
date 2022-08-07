@@ -5,7 +5,6 @@ import { Page } from "../components/app/page/Page";
 const Issues: NextPage = () => {
   return (
     <Page title="issues">
-      <div className="py-8">issues</div>
       <Link href="issues/1">#1</Link>
     </Page>
   );

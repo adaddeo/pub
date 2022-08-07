@@ -2,21 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+#__next {
+  @apply h-full;
+}
+
 .ProseMirror {
   @apply outline-0;
 }
 
 .ProseMirror h1 {
-  @apply mb-5 font-bold text-lg;
+  @apply mb-6 font-bold text-lg;
 }
 
 .ProseMirror p {
-  @apply leading-7;
+  @apply leading-7 mb-4;
 }
 
-.ProseMirror[data-placeholder]::before {
-  color: #777;
-  position: absolute;
+.ProseMirror [data-placeholder]::before {
+  @apply text-gray-400 absolute pointer-events-none;
+
   content: attr(data-placeholder);
-  pointer-events: none;
 }

@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { ReactNode } from "react";
 import { Navigation } from "../Navigation";
+import { TransactionView } from "../TransactionView";
 
 type PageProps = {
   title: string;
@@ -20,10 +21,11 @@ export function Page({ title, pageTitle, children }: PageProps) {
           <Navigation />
         </div>
         <div className="flex-1 max-w-screen-md">
-          <h1 className="text-lg font-bold">{title}</h1>
+          <h1 className="text-lg font-bold mb-6">{title}</h1>
           {children}
         </div>
       </div>
+      <TransactionView />
     </div>
   );
 }

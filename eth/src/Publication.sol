@@ -1,111 +1,120 @@
 
-// // SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: UNLICENSED
 
-// pragma solidity ^0.8.0;
+pragma solidity ^0.8.0;
 
-// import "openzeppelin-contracts/contracts/access/Ownable.sol";
-// import "openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol";
+import "openzeppelin-contracts/contracts/access/AccessControl.sol";
+import "openzeppelin-contracts/contracts/access/Ownable.sol";
+import "openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol";
 
-// contract Publication is Ownable {
-//   event IssuePublished(uint256 indexed issueId, uint256[] _submissionIds, string data);
-//   event NewPublication(string title);
-//   event NewIssue(uint256 issueId);
-//   event NewSubmission(uint256 indexed issueId, uint256 submissionId, string content);
+contract Publication is Ownable, AccessControl {
+  event IssuePublished(uint256 indexed issueId, uint256[] _submissionIds, string data);
+  event NewPublication(string title);
+  event NewIssue(uint256 issueId);
+  event NewSubmission(uint256 indexed issueId, uint256 submissionId, string content);
 
-//   uint256 private nextIssueId;
-//   mapping(uint256 => Issue) private issues;
+  bytes32 public constant PUBLISHER_ROLE = keccak256("PUBLISHER_ROLE");
 
-//   // TODO centralize for claiming across publications
-//   mapping(address => uint256) private unclaimedRewards;
+  uint256 private nextIssueId;
+  mapping(uint256 => Issue) private issues;
 
-//   struct Issue {
-//     uint256 submissionsOpenBlock;
-//     uint256 submissionsCloseBlock;
-//     uint256 publishedAt;
-//     uint256 submissionFee;
-//     uint256 rewards;
+  // TODO centralize for claiming across publications? too intense for now?
+  mapping(address => uint256) private unclaimedRewards;
 
-//     uint256 nextSubmissionId;
-//     mapping(uint256 => Submission) submissions;
+  struct Issue {
+    uint256 submissionsOpenAt;
+    uint256 submissionsCloseAt;
+    uint256 publishedAt;
+    uint256 submissionFee;
+    uint256 rewards;
 
-//     uint256 nextContentId;
-//     mapping(uint256 => Submission) contents;
-//   }
+    uint256 nextSubmissionId;
+    mapping(uint256 => Submission) submissions;
 
-//   struct Submission {
-//     address submitter;
-//   }
+    uint256 nextContentId;
+    mapping(uint256 => Submission) contents;
+  }
 
-//   /** queries */
+  struct Submission {
+    address submitter;
+  }
 
-//   function submissionFee(uint256 _issueId) external view returns (uint256) {
-//     return issues[_issueId].submissionFee;
-//   }
+  constructor() {
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    _setupRole(PUBLISHER_ROLE, msg.sender);
+  }
 
-//   function issueRewards(uint256 _issueId) external view returns (uint256) {
-//     return issues[_issueId].rewards;
-//   }
+  /** queries */
 
-//   function submissionsCount(uint256 _issueId) external view returns (uint256) {
-//     return issues[_issueId].nextSubmissionId;
-//   }
+  function submissionFee(uint256 _issueId) external view returns (uint256) {
+    return issues[_issueId].submissionFee;
+  }
 
-//   /** commands */
+  function issueRewards(uint256 _issueId) external view returns (uint256) {
+    return issues[_issueId].rewards;
+  }
 
-//   function createIssue(
-//     uint256 _submissionsOpenBlock,
-//     uint256 _submissionsCloseBlock,
-//     uint256 _submissionFee
-//   ) external onlyOwner {
-//     uint256 issueId = nextIssueId++;
-//     Issue storage nextIssue = issues[issueId];
-//     nextIssue.submissionsOpenBlock = _submissionsOpenBlock;
-//     nextIssue.submissionsCloseBlock = _submissionsCloseBlock;
-//     nextIssue.submissionFee = _submissionFee;
-//     // setup NFT?
-//     emit NewIssue(issueId);
-//   }
+  function submissionsCount(uint256 _issueId) external view returns (uint256) {
+    return issues[_issueId].nextSubmissionId;
+  }
 
-//   function createSubmission(uint256 _issueId, string calldata content) external payable {
-//     Issue storage issue = issues[_issueId];
+  /** commands */
 
-//     if (block.number < issue.submissionsOpenBlock || block.number > issue.submissionsCloseBlock) {
-//       revert SubmissionsClosed();
-//     }
+  function createIssue(
+    uint256 _submissionsOpenAt,
+    uint256 _submissionsCloseAt,
+    uint256 _submissionFee
+  ) external onlyRole(PUBLISHER_ROLE) {
+    uint256 issueId = nextIssueId++;
+    Issue storage nextIssue = issues[issueId];
+    nextIssue.submissionsOpenAt = _submissionsOpenAt;
+    nextIssue.submissionsCloseAt = _submissionsCloseAt;
+    nextIssue.submissionFee = _submissionFee;
+    // setup NFT?
+    emit NewIssue(issueId);
+  }
 
-//     if (msg.value != issue.submissionFee) {
-//       revert SubmissionFeeNotPaid();
-//     }
+  function createSubmission(uint256 _issueId, string calldata content) external payable {
+    Issue storage issue = issues[_issueId];
 
-//     uint256 submissionId = issue.nextSubmissionId++;
-//     Submission storage submission = issue.submissions[submissionId];
-//     submission.submitter = msg.sender;
-//     issue.rewards += msg.value;
-//     emit NewSubmission(_issueId, submissionId, content);
-//   }
+    if (block.number < issue.submissionsOpenAt || block.number > issue.submissionsCloseAt) {
+      revert SubmissionsClosed();
+    }
 
-//   function publishIssue(uint256 _issueId, uint256[] calldata _submissionIds, string calldata data) external onlyOwner {
-//     Issue storage issue = publication.issues[_issueId];
-//     if (issue.publishedAt != 0) {
-//       revert IssueAlreadyPublished();
-//     }
-//     issue.publishedAt  = block.timestamp;
-//     uint256 length = _submissionIds.length;
-//     for (uint256 i = 0; i < length;) {
-//       Submission storage submission = issue.submissions[_submissionIds[i]];
-//       if (submission.submitter == address(0)) {
-//         revert InvalidSubmissionId(_submissionIds[i]);
-//       }
-//       unclaimedRewards[submission.submitter] += issue.rewards / length;
-//       unchecked { ++i; }
-//     }
-//     // should the content be stored in log or storage?
-//     // also include
-//     emit IssuePublished(_issueId, _submissionIds, data);
-//   }
+    if (msg.value != issue.submissionFee) {
+      revert SubmissionFeeNotPaid();
+    }
 
-//   error InvalidSubmissionId(uint256 submissionId);
-//   error IssueAlreadyPublished();
-//   error SubmissionFeeNotPaid();
-//   error SubmissionsClosed();
-// }
+    uint256 submissionId = issue.nextSubmissionId++;
+    Submission storage submission = issue.submissions[submissionId];
+    submission.submitter = msg.sender;
+    issue.rewards += msg.value;
+    emit NewSubmission(_issueId, submissionId, content);
+  }
+
+  function publishIssue(uint256 _issueId, uint256[] calldata _submissionIds, string calldata data) external onlyRole(PUBLISHER_ROLE) {
+    Issue storage issue = issues[_issueId];
+    if (issue.publishedAt != 0) {
+      revert IssueAlreadyPublished();
+    }
+    issue.publishedAt  = block.timestamp;
+    uint256 length = _submissionIds.length;
+    for (uint256 i = 0; i < length;) {
+      Submission storage submission = issue.submissions[_submissionIds[i]];
+      if (submission.submitter == address(0)) {
+        revert InvalidSubmissionId(_submissionIds[i]);
+      }
+      unclaimedRewards[submission.submitter] += issue.rewards / length;
+      unchecked { ++i; }
+    }
+    // should the content be stored in log or storage?
+    // also include
+    emit IssuePublished(_issueId, _submissionIds, data);
+  }
+
+  error InvalidSubmissionId(uint256 submissionId);
+  error IssueAlreadyPublished();
+  error PermissionDenied();
+  error SubmissionFeeNotPaid();
+  error SubmissionsClosed();
+}

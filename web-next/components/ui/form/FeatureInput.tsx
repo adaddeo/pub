@@ -6,7 +6,7 @@ import { buildPlugins } from "../../../lib/prosemirror";
 const editorState = EditorState.create({
   doc: textSchema.node("doc", null, [
     textSchema.node("title", null),
-    textSchema.node("paragraph", null),
+    textSchema.node("body", null, [textSchema.node("paragraph", null)]),
   ]),
   plugins: buildPlugins({ schema: textSchema }),
 });
